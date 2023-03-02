@@ -1,36 +1,68 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>AI Universe Hub</title>
 
     <!-- DaisyUI and tailwind css cdn link -->
-    <link href="https://cdn.jsdelivr.net/npm/daisyui@2.51.3/dist/full.css" rel="stylesheet" type="text/css" />
+    <link
+      href="https://cdn.jsdelivr.net/npm/daisyui@2.51.3/dist/full.css"
+      rel="stylesheet"
+      type="text/css"
+    />
     <script src="https://cdn.tailwindcss.com"></script>
 
     <!-- font awesome icon kits link -->
-    <script src="https://kit.fontawesome.com/fd85056b29.js" crossorigin="anonymous"></script>
-    
-</head>
-<body>
+    <script
+      src="https://kit.fontawesome.com/fd85056b29.js"
+      crossorigin="anonymous"
+    ></script>
+  </head>
+  <body onload="loadData()">
     <!-- header section -->
     <header class="container mx-auto text-center">
-        <h1 class="font-bold text-3xl lg:text-5xl m-5">AI Universe Hub</h1>
-        <button class="btn bg-red-500 border-none mb-5">Sort by Date</button>
+      <h1 class="font-bold text-3xl lg:text-5xl m-5">AI Universe Hub</h1>
+      <button class="btn bg-red-500 border-none mb-5">Sort by Date</button>
     </header>
 
     <!-- main section -->
     <main>
-        <section id="container" class="grid grid-cols-1 lg:grid-cols-3 gap-5 container mx-auto">
-            
-            
-        </section>
-    </main>
-     
+      <!-- card section -->
+      <section
+        id="container"
+        class="grid grid-cols-1 lg:grid-cols-3 gap-5 container mx-auto"
+      ></section>
 
+      <!-- modal is here -->
+      <section>
+        <!-- The button to open modal -->
+        <!-- <label for="my-modal-3" class="btn">open modal</label> -->
+
+        <!-- Put this part before tag -->
+        <input type="checkbox" id="my-modal" class="modal-toggle" />
+        <div class="modal">
+          <div class="modal-box relative">
+            <label
+              for="my-modal"
+              class="btn bg-red-500 border-none btn-sm btn-circle absolute right-0 top-0"
+              >✕</label>
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-5">
+                <div class="text-lg font-bold">
+                    Congratulations random Internet user!
+                </div>
+                <div id="image" class="py-4">
+
+                </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- <progress class="progress w-56"></progress> -->
+    </main>
 
     <script src="/app.js"></script>
-</body>
+  </body>
 </html>
