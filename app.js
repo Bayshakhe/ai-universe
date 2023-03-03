@@ -7,15 +7,15 @@
 
 const loadData = () => {
     const url = `https://openapi.programming-hero.com/api/ai/tools`
-    fetch(url).then(res => res.json()).then(data => appendData(data));
+    fetch(url).then(res => res.json()).then(data => showData(data));
 }
 
-const appendData = (data) => {
+const showData = (data) => {
   let mainArray = data.data.tools;
   mainArray = mainArray.slice(0,6);
   mainArray.forEach(element => {
-        // console.log(element)
-        const {name, description, image, published_in, features, id} = element;
+    const {name, description, image, published_in, features, id} = element;
+    console.log(element)
         
         const container = document.getElementById('container');
         const cardDiv = document.createElement('div');
@@ -24,17 +24,22 @@ const appendData = (data) => {
         // console.log(data.data.tools);
 
 
+
         cardDiv.innerHTML = `
         <div class="card rounded-lg border p-5  bg-base-100 ">
                 <figure><img src="${image}" class="rounded-xl" /></figure>
                 <div class="mt-3 ">
                   <h2 class="card-title font-bold">Features</h2>
-                  <ul id="list-container">
-                  ${features.map(x => x)}
+                  <ul>
+                  <li>${features[0]}</li>
+                  <li>${features[1]}</li>
+                  <li>${features[2]}</li>
+                  <li>${features[3] ? features[3] : ''}</li>
+                  <li>${features[4] ? features[4] : ''}</li>
                   </ul>
                   <div class="card-actions justify-between mt-5 items-center">
                     <div><h2 class="card-title font-bold">${name}</h2>
-                    <div class="flex items-center gap-2 mt-2 text-zinc-500">
+                    <div class="flex items-center gap-2 mt-2 text-zinc-600">
                     <i class="far fa-calendar-alt"></i>
                     <p>${published_in}</p>
                     </div></div>
@@ -44,8 +49,6 @@ const appendData = (data) => {
                 </div>
             </div>
         `
-      
-
         container.appendChild(cardDiv);
     });
     
@@ -85,4 +88,53 @@ const showSingleData = (data) => {
   
   modalBox.appendChild(modalLeft);
   modalBox.appendChild(modalRight);
+}
+
+const loadData2 = () => {
+  const url = `https://openapi.programming-hero.com/api/ai/tools`
+  fetch(url).then(res => res.json()).then(data => showTotalData(data));
+}
+const showTotalData = (data) => {
+  let mainArray = data.data.tools;
+  mainArray = mainArray.slice(6,12);
+  mainArray.forEach(element => {
+    // console.log(element)
+    const {name, description, image, published_in, features, id} = element;
+    
+    const container = document.getElementById('container');
+    const cardDiv = document.createElement('div');
+
+    const listContainer = document.getElementById('list-container');
+    // console.log(data.data.tools);
+
+
+    cardDiv.innerHTML = `
+    <div class="card rounded-lg border p-5  bg-base-100 ">
+            <figure><img src="${image}" class="rounded-xl" /></figure>
+            <div class="mt-3 ">
+              <h2 class="card-title font-bold">Features</h2>
+              <ul>
+                  <li>${features[0]}</li>
+                  <li>${features[1]}</li>
+                  <li>${features[2]}</li>
+                  <li>${features[3] ? features[3] : ''}</li>
+                  <li>${features[4] ? features[4] : ''}</li>
+                  </ul>
+              <div class="card-actions justify-between mt-5 items-center">
+                <div><h2 class="card-title font-bold">${name}</h2>
+                <div class="flex items-center gap-2 mt-2 text-zinc-600">
+                <i class="far fa-calendar-alt"></i>
+                <p>${published_in}</p>
+                </div></div>
+                <label onclick="loadSingleData('${id}')" for="my-modal"  class="font-bold text-xl text-red-500 border-none"><i class="fas fa-arrow-right"></i></label>
+                
+              </div>
+            </div>
+        </div>
+    `
+  
+
+    container.appendChild(cardDiv);
+});
+
 }
