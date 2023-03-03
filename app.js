@@ -11,8 +11,8 @@ const loadData = () => {
 }
 
 const appendData = (data) => {
-  const mainArray = data.data.tools;
-  // mainArray = mainArray.slice(0,6)
+  let mainArray = data.data.tools;
+  mainArray = mainArray.slice(0,6);
   mainArray.forEach(element => {
         // console.log(element)
         const {name, description, image, published_in, features, id} = element;
@@ -58,20 +58,31 @@ const loadSingleData = (id) => {
 
 const showSingleData = (data) => {
   console.log(data);
-  const {name, description, image_link, published_in, features} = data;
+  const {name, description, image_link, published_in, features, pricing} = data;
 
     const modalBox = document.getElementById('modal-box');
     modalBox.innerText = '';
-    const modalDiv = document.createElement('div');
+    const modalLeft = document.createElement('div');
+    const modalRight = document.createElement('div');
   
     
-    modalDiv.innerHTML = `
-        
+    modalLeft.innerHTML = `
+    <div class="bg-red-100 border border-red-400 rounded-xl p-5">
     <div class="text-lg font-bold">${description}</div>
+    <div class="grid grid-cols-3 gap-3">
+    <div class="bg-white p-3 text-lg font-bold text-green-600 rounded-xl">${pricing[0].plan} <br> ${pricing[0].price}</div>
+    <div class="bg-white p-3 text-lg font-bold text-orange-600 rounded-xl">${pricing[1].plan} <br> ${pricing[1].price}</div>
+    <div class="bg-white p-3 text-lg font-bold text-rose-600 rounded-xl">${pricing[2].plan} <br> ${pricing[2].price}</div>
+    
+    </div>
+    </div>
+  `
+    modalRight.innerHTML = `
     <div class="py-4">
     <img src="${image_link[0]}" class="rounded-xl" />
     </div>
   `
   
-  modalBox.appendChild(modalDiv)
+  modalBox.appendChild(modalLeft);
+  modalBox.appendChild(modalRight);
 }

@@ -19,7 +19,21 @@
       src="https://kit.fontawesome.com/fd85056b29.js"
       crossorigin="anonymous"
     ></script>
+
+    <!-- <style>
+      .modal-box{
+        background-color: brown;
+        width: 1000px;
+        height: 700px;
+        margin: 0;
+        padding: 0;
+      }
+    </style> -->
+
+
   </head>
+
+
   <body onload="loadData()">
     <!-- header section -->
     <header class="container mx-auto text-center">
@@ -28,12 +42,13 @@
     </header>
 
     <!-- main section -->
-    <main>
+    <main class="container mx-auto">
       <!-- card section -->
       <section
         id="container"
-        class="grid grid-cols-1 lg:grid-cols-3 gap-5 container mx-auto"
-      ></section>
+        class="grid grid-cols-1 lg:grid-cols-3 gap-5 container mx-auto">
+
+      </section>
 
       <!-- modal is here -->
       <section>
@@ -41,14 +56,14 @@
         <!-- <label for="my-modal-3" class="btn">open modal</label> -->
 
         <!-- Put this part before tag -->
-        <input type="checkbox" id="my-modal" class="modal-toggle" />
+        <input type="checkbox" id="my-modal" class="modal-toggle bg-red-500" />
         <div class="modal">
-          <div class="modal-box relative">
+          <div class="modal-box relative w-11/12 max-w-5xl">
             <label
               for="my-modal"
               class="btn bg-red-500 border-none btn-sm btn-circle absolute right-0 top-0"
               >✕</label>
-            <div id="modal-box" class="grid grid-cols-1 lg:grid-cols-2 gap-5">
+            <div id="modal-box" class="m-5 grid grid-cols-1 lg:grid-cols-2 gap-5">
                 
             </div>
           </div>
