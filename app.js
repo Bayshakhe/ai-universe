@@ -1,32 +1,16 @@
-// API Links
-// All data: https://openapi.programming-hero.com/api/ai/tools
 
-// Single data details: https://openapi.programming-hero.com/api/ai/tool/${id}
-
-// Single data Example: https://openapi.programming-hero.com/api/ai/tool/01
-
+// fetch for load data
 const loadData = () => {
   const url = `https://openapi.programming-hero.com/api/ai/tools`
   fetch(url).then(res => res.json()).then(data => showData(data));
 }
-
 const showData = (data) => {
   let mainArray = data.data.tools;
-  // console.log(Object.keys(mainArray).length)
-  // mainArray = mainArray.slice(0,6);
   const btnSeeMore = document.getElementById('btn-see-more');
   if (Object.keys(mainArray).length > 6) {
     mainArray = mainArray.slice(0, 6);
     btnSeeMore.classList.remove('hidden');
   }
-
-  const sortByDate = document.getElementById('sortByDate-btn');
-  sortByDate.addEventListener('click', function () {
-    mainArray.sort(bydate);
-    function bydate(a, b) {
-      return new Date(a.published_in).valueOf() - new Date(b.published_in).valueOf();
-    }
-  })
 
   mainArray.forEach(element => {
     const { name, image, published_in, features, id } = element;
@@ -65,6 +49,7 @@ const showData = (data) => {
   });
 }
 
+// fetch for data
 const loadData2 = () => {
   const url = `https://openapi.programming-hero.com/api/ai/tools`
   fetch(url).then(res => res.json()).then(data => showTotalData(data));
@@ -113,13 +98,12 @@ const showTotalData = (data) => {
   });
 }
 
+// fetch single data by id
 const loadSingleData = (id) => {
   const url = `https://openapi.programming-hero.com/api/ai/tool/${id}`
   fetch(url).then(res => res.json()).then(data => showSingleData(data.data))
 }
-
 const showSingleData = (data) => {
-  console.log(data)
   const {description, image_link, pricing, integrations, accuracy, input_output_examples} = data;
 
   const modalBox = document.getElementById('modal-box');
@@ -155,7 +139,6 @@ const showSingleData = (data) => {
   modalBox.appendChild(modalLeft);
 
   const example = data.features;
-  console.log(example)
   const featureContainer = document.getElementById('feature-container');
   for (const key in example){
     const featureList = document.createElement('li');
@@ -164,21 +147,18 @@ const showSingleData = (data) => {
   }
 
   const integrationContainer = document.getElementById('integration-container');
-  console.log(integrations);
   integrations.forEach(x => {
     const integrationList = document.createElement('li');
     integrationList.innerText = x ? x : 'No data found';
     integrationContainer.appendChild(integrationList);
   })
 
-
-
   modalRight.innerHTML = `
     <div class="py-4">
       <div class="py-4 relative">
       <img src="${image_link[0]}" class="rounded-xl" />
       <button id="accuracy-btn" class="p-3 bg-red-500 text-white rounded-xl absolute right-0 top-5">${accuracy.score ? accuracy.score * 100 + '% accuracy' : ''}</button>
-      <div class="text-center">
+      <div id="input-output" class="text-center">
         <p class="text-xl font-bold mt-4">${input_output_examples[0].input}</p>
         <p class=" text-zinc-600">${input_output_examples[0].output ? input_output_examples[0].output : 'No! Not Yet! Take a break!!!'}</p>
       </div>
@@ -193,7 +173,7 @@ const showSingleData = (data) => {
   }
 }
 
-
+// for progress bar on loading
 const progressBar = isLoading => {
   const loader = document.getElementById('loader');
   if (isLoading) {
@@ -204,6 +184,7 @@ const progressBar = isLoading => {
   }
 }
 
+// for progress bar on loading
 window.addEventListener('load', () => {
   const loader = document.getElementById('loader');
   loader.classList.add('hidden')
