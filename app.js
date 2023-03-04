@@ -6,27 +6,34 @@
 // Single data Example: https://openapi.programming-hero.com/api/ai/tool/01
 
 const loadData = () => {
-    const url = `https://openapi.programming-hero.com/api/ai/tools`
-    fetch(url).then(res => res.json()).then(data => showData(data));
+  const url = `https://openapi.programming-hero.com/api/ai/tools`
+  fetch(url).then(res => res.json()).then(data => showData(data));
 }
 
 const showData = (data) => {
   let mainArray = data.data.tools;
   // console.log(Object.keys(mainArray).length)
   // mainArray = mainArray.slice(0,6);
-    const btnSeeMore = document.getElementById('btn-see-more');
-    if(Object.keys(mainArray).length > 6){
-    mainArray = mainArray.slice(0,6);
+  const btnSeeMore = document.getElementById('btn-see-more');
+  if (Object.keys(mainArray).length > 6) {
+    mainArray = mainArray.slice(0, 6);
     btnSeeMore.classList.remove('hidden');
+  }
+
+  const sortByDate = document.getElementById('sortByDate-btn');
+  sortByDate.addEventListener('click', function () {
+    mainArray.sort(bydate);
+    function bydate(a, b) {
+      return new Date(a.published_in).valueOf() - new Date(b.published_in).valueOf();
     }
+  })
 
   mainArray.forEach(element => {
-    const {name, image, published_in, features, id} = element;
-        
-        const container = document.getElementById('container');
-        const cardDiv = document.createElement('div');
-        
-        cardDiv.innerHTML = `
+    const { name, image, published_in, features, id } = element;
+    const container = document.getElementById('container');
+    const cardDiv = document.createElement('div');
+
+    cardDiv.innerHTML = `
         <div class="card h-96 rounded-lg border p-5  bg-base-100 ">
                 <figure><img src="${image}" class="rounded-xl" /></figure>
                 <div class="mt-3 ">
@@ -47,16 +54,15 @@ const showData = (data) => {
                 </div>
         </div>
         `
-        container.appendChild(cardDiv);
+    container.appendChild(cardDiv);
 
-        const listContainer = document.getElementById(id);
-        features.forEach(x => {
-          const list = document.createElement('li');
-          list.innerText = x;
-          listContainer.appendChild(list);
-        })
-    });
-    progressBar(false)
+    const listContainer = document.getElementById(id);
+    features.forEach(x => {
+      const list = document.createElement('li');
+      list.innerText = x;
+      listContainer.appendChild(list);
+    })
+  });
 }
 
 const loadData2 = () => {
@@ -66,14 +72,13 @@ const loadData2 = () => {
 const showTotalData = (data) => {
   let mainArray = data.data.tools;
   const btnSeeMore = document.getElementById('btn-see-more');
-    if(Object.keys(mainArray).length > 6){
-    mainArray = mainArray.slice(6,12);
+  if (Object.keys(mainArray).length > 6) {
+    mainArray = mainArray.slice(6, 12);
     btnSeeMore.classList.add('hidden');
-    }
+  }
   mainArray.forEach(element => {
-    // console.log(element)
-    const {name, image, published_in, features, id} = element;
-    
+    const { name, image, published_in, features, id } = element;
+
     const container = document.getElementById('container');
     const cardDiv = document.createElement('div');
 
@@ -97,16 +102,15 @@ const showTotalData = (data) => {
                 </div>
             </div>
         `
-        container.appendChild(cardDiv);
+    container.appendChild(cardDiv);
 
-        const listContainer = document.getElementById(id);
-        features.forEach(x => {
-          const list = document.createElement('li');
-          list.innerText = x;
-          listContainer.appendChild(list);
-        })
-});
-// progressBar(true)
+    const listContainer = document.getElementById(id);
+    features.forEach(x => {
+      const list = document.createElement('li');
+      list.innerText = x;
+      listContainer.appendChild(list);
+    })
+  });
 }
 
 const loadSingleData = (id) => {
@@ -116,51 +120,64 @@ const loadSingleData = (id) => {
 
 const showSingleData = (data) => {
   console.log(data)
-  const {name, description, image_link, published_in, features, pricing, integrations, accuracy, input_output_examples
-  } = data;
-  console.log(features, integrations);
+  const {description, image_link, pricing, integrations, accuracy, input_output_examples} = data;
 
-    const modalBox = document.getElementById('modal-box');
-    modalBox.innerText = '';
-    const modalLeft = document.createElement('div');
-    const modalRight = document.createElement('div');
-  
-    modalLeft.innerHTML = `
+  const modalBox = document.getElementById('modal-box');
+  modalBox.innerText = '';
+  const modalLeft = document.createElement('div');
+  const modalRight = document.createElement('div');
+
+  modalLeft.innerHTML = `
     <div class="bg-red-100 border border-red-400 rounded-xl p-5">
       <div class="text-lg font-bold">${description}</div>
-      <div class="grid grid-cols-3 gap-3 my-5">
-        <div class="bg-white p-3 text-lg font-bold text-green-600 rounded-xl">${pricing[0].plan} <br> ${pricing[0].price}</div>
-        <div class="bg-white p-3 text-lg font-bold text-orange-600 rounded-xl">${pricing[1].plan} <br> ${pricing[1].price}</div>
-        <div class="bg-white p-3 text-lg font-bold text-rose-600 rounded-xl">${pricing[2].plan} <br> ${pricing[2].price}</div>
+      <div class="grid grid-cols-1 lg:grid-cols-3 gap-3 my-5 text-center">
+        <div class="bg-white p-3 text-lg font-bold text-green-600 rounded-xl">${pricing[0].price ? pricing[0].price : 'Free of Cost'} <br> ${pricing[0].plan}</div>
+        <div class="bg-white p-3 text-lg font-bold text-orange-600 rounded-xl">${pricing[1].price ? pricing[0].price : 'Free of Cost'} <br> ${pricing[1].plan}</div>
+        <div class="bg-white p-3 text-lg font-bold text-rose-600 rounded-xl">${pricing[2].price ? pricing[0].price : 'Free of Cost'} <br> ${pricing[2].plan}</div>
       </div>
       <div class="grid grid-cols-2 gap-3">
         <div>
         <h2 class="card-title font-bold">Features</h2>
         <ul id="feature-container" class="list-disc ml-4 text-zinc-600">
-          <li>${features[1].feature_name}</li>
-          <li>${features[2].feature_name}</li>
-          <li>${features[3].feature_name ? features[3].feature_name : ''}</li>
+          
         </ul>
         </div>
         <div>
         <h2 class="card-title font-bold">Integrations</h2>
         <ul id="integration-container" class="list-disc ml-4 text-zinc-600">
-          <li>${integrations[0]}</li>
-          <li>${integrations[1] ? integrations[1] : ''}</li>
-          <li>${integrations[2] ? integrations[2] : ''}</li>
+          
         </ul>
         </div>
       </div>
 
     </div>
   `
+  modalBox.appendChild(modalLeft);
+
+  const example = data.features;
+  console.log(example)
+  const featureContainer = document.getElementById('feature-container');
+  for (const key in example){
+    const featureList = document.createElement('li');
+    featureList.innerText = example[key].feature_name;
+    featureContainer.appendChild(featureList);
+  }
+
+  const integrationContainer = document.getElementById('integration-container');
+  console.log(integrations);
+  integrations.forEach(x => {
+    const integrationList = document.createElement('li');
+    integrationList.innerText = x ? x : 'No data found';
+    integrationContainer.appendChild(integrationList);
+  })
 
 
-    modalRight.innerHTML = `
+
+  modalRight.innerHTML = `
     <div class="py-4">
       <div class="py-4 relative">
       <img src="${image_link[0]}" class="rounded-xl" />
-      <button class="p-3 bg-red-500 text-white rounded-xl absolute right-0 top-5">${accuracy.score}% accuracy</button>
+      <button id="accuracy-btn" class="p-3 bg-red-500 text-white rounded-xl absolute right-0 top-5">${accuracy.score ? accuracy.score * 100 + '% accuracy' : ''}</button>
       <div class="text-center">
         <p class="text-xl font-bold mt-4">${input_output_examples[0].input}</p>
         <p class=" text-zinc-600">${input_output_examples[0].output ? input_output_examples[0].output : 'No! Not Yet! Take a break!!!'}</p>
@@ -168,18 +185,29 @@ const showSingleData = (data) => {
       </div>
     </div>
   `
-  
-  modalBox.appendChild(modalLeft);
   modalBox.appendChild(modalRight);
+
+  const accuracyButton = document.getElementById('accuracy-btn');
+  if(accuracy.score === null){
+    accuracyButton.classList.remove('bg-red-500');
+  }
 }
 
 
 const progressBar = isLoading => {
   const loader = document.getElementById('loader');
-  if(isLoading){
+  if (isLoading) {
     loader.classList.remove('hidden');
   }
-  else{
+  else {
     loader.classList.add('hidden');
   }
 }
+
+window.addEventListener('load', () => {
+  const loader = document.getElementById('loader');
+  loader.classList.add('hidden')
+  loader.addEventListener('transitionend', () => {
+    loader.classList.remove('hidden')
+  })
+})

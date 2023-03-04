@@ -20,17 +20,6 @@
       crossorigin="anonymous"
     ></script>
 
-    <!-- <style>
-      .modal-box{
-        background-color: brown;
-        width: 1000px;
-        height: 700px;
-        margin: 0;
-        padding: 0;
-      }
-    </style> -->
-
-
   </head>
 
 
@@ -38,22 +27,21 @@
     <!-- header section -->
     <header class="container mx-auto text-center">
       <h1 class="font-bold text-3xl lg:text-5xl m-5">AI Universe Hub</h1>
-      <button class="btn bg-red-500 border-none mb-5">Sort by Date</button>
+      <button id="sortByDate-btn" class="btn bg-red-500 border-none mb-5">Sort by Date</button>
     </header>
 
     <!-- main section -->
     <main class="container mx-auto">
-      <!-- card section -->
 
-      <div id="loader" class="w-full text-center hidden">
+      <div id="loader" class="w-full text-center">
         <progress class="progress w-56"></progress>
       </div>
 
+      <!-- card section -->
       <section>
         <div id="container" class="grid grid-cols-1 lg:grid-cols-3 gap-5 container mx-auto">
 
         </div>
-
       </section>
 
       <!-- see more button part -->
