@@ -44,15 +44,21 @@
     <!-- main section -->
     <main class="container mx-auto">
       <!-- card section -->
-      <section
-        id="container"
-        class="grid grid-cols-1 lg:grid-cols-3 gap-5 container mx-auto">
+
+      <div id="loader" class="w-full text-center hidden">
+        <progress class="progress w-56"></progress>
+      </div>
+
+      <section>
+        <div id="container" class="grid grid-cols-1 lg:grid-cols-3 gap-5 container mx-auto">
+
+        </div>
 
       </section>
 
       <!-- see more button part -->
-      <section class="text-center">
-        <button onclick="loadData2()" class="btn bg-red-500 border-none mb-5">See More</button>
+      <section class="text-center my-5 ">
+        <button id="btn-see-more" onclick="loadData2()" class="btn bg-red-500 border-none hidden ">See More</button>
       </section>
 
       <!-- modal is here -->
@@ -75,7 +81,6 @@
         </div>
       </section>
 
-      <!-- <progress class="progress w-56"></progress> -->
     </main>
 
     <script src="/app.js"></script>
